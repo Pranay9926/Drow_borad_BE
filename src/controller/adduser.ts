@@ -1,17 +1,18 @@
 import { Request, Response } from 'express';
-import { generateSalt } from '../helpers/hashpassword';
+import { CreateUser } from '../service/userService';
 
 
-export const Add_user =async (req:Request,res:Response) => {
-//     try {
-//     const data = await createUser(_req);
-//     console.log(data, 'data');
-//     return res
-//       .status(200)
-//       .send({ message: 'User added successfully', data: data });
-//   } catch (err) {
-    console.log('***',generateSalt() );
-//   }
-generateSalt();
-return res.json();
+export const Add_user = async (req: Request, res: Response) => {
+    console.log('***', req.body);
+    try {
+        // Create a new user
+        const userValue = await CreateUser(req);
+        console.log("this is your value ", userValue);
+        return res.status(201).json({ message: 'User created successfully', userValue });
+    } catch (error: any) {
+        return res.status(400).json({ message: error.errors[0].message });
+    }
+
 }
+
+// logers 
