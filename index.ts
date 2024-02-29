@@ -4,15 +4,15 @@ import { credentials } from "./src/config/config";
 import { sequelize } from "./src/config/dbconfig";
 import { setRoutes } from "./src/routes";
 import { initModel } from "./src/models";
+import http from 'http';
+import { initializeSocket } from './src/helpers/socket';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+const server = http.createServer(app);
 
 const port = process.env.PORT || 5001;
-
-
-// console.log("hello all",credentials)
 
 try {
   initModel(sequelize);
@@ -22,7 +22,11 @@ try {
 
 }
 
+const io = initializeSocket(server);
 setRoutes(app);
 
+// console.log("Starting Server on Port: ", io);
 
-app.listen(port, () => console.log(`Server running on ${port}`));
+
+
+server.listen(port, () => console.log(`Server running on ${port}`));
