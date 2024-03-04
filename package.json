@@ -24,7 +24,8 @@
     "pg": "^8.11.3",
     "sequelize": "^6.37.1",
     "sequelize-typescript": "^2.1.6",
-    "socket.io": "^4.7.4"
+    "socket.io": "^4.7.4",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
